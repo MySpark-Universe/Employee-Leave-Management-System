@@ -1,0 +1,13 @@
+package com.pandiji.elms.repository;
+
+import com.pandiji.elms.entity.Employee;
+import com.pandiji.elms.entity.LeaveBalance;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.Optional;
+
+public interface LeaveBalanceRepository
+        extends JpaRepository<LeaveBalance, Long> {
+
+    Optional<LeaveBalance> findByEmployee(Employee employee);
+}
