@@ -2,6 +2,7 @@ import { useState } from "react";
 import Layout from "../components/Layout";
 import api from "../services/api";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function ApplyLeave() {
   const [leaveType, setLeaveType] = useState("CASUAL");
@@ -20,7 +21,7 @@ function ApplyLeave() {
         endDate,
         reason,
       });
-
+      toast.success("Leave Applied Successfully ✅");
       navigate("/my-leaves");
 
       setLeaveType("CASUAL");
@@ -30,7 +31,7 @@ function ApplyLeave() {
     } catch (error) {
       console.error(error);
 
-      alert("Failed to Apply Leave ❌");
+      toast.error("Failed to Apply Leave");
     }
   };
 

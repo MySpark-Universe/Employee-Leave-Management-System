@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
+import toast from "react-hot-toast";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -23,7 +24,7 @@ function Login() {
       console.log(userResponse.data);
 
       const role = userResponse.data.role;
-
+      toast.success("Login Successful");
       if (role === "EMPLOYEE") {
         navigate("/employee-dashboard");
       }
@@ -38,7 +39,7 @@ function Login() {
     } catch (error) {
       console.error(error);
 
-      alert("Invalid Credentials ❌");
+      toast.error("Invalid Credentials");
     }
   };
 

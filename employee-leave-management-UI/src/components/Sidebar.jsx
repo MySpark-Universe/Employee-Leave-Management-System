@@ -1,6 +1,22 @@
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import api from "../services/api";
 
 function Sidebar() {
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await api.get("/auth/me");
+
+        setUser(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchUser();
+  }, []);
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -11,26 +27,80 @@ function Sidebar() {
 
   return (
     <div className="w-64 bg-slate-900 text-white min-h-screen p-5">
-      <h2 className="text-2xl font-bold mb-8">ELMS</h2>
+      <h2 className="text-2xl font-bold mb-4">ELMS</h2>
 
-      <nav className="flex flex-col gap-4">
-        <Link
-          to="/employee-dashboard"
-          className="px-3 py-2 rounded hover:bg-slate-800"
-        >
-          Dashboard
-        </Link>
+      <p className="text-slate-300 mb-6">
+        Welcome,
+        <br />
+        <span className="font-semibold">{user?.name}</span>
+      </p>
+      <nav className="flex flex-col gap-3">
+        {user?.role === "EMPLOYEE" && (
+          <>
+            <NavLink
+              to="/employee-dashboard"
+              className={({ isActive }) =>
+                `px-3 py-2 rounded ${
+                  isActive ? "bg-blue-600 text-white" : "hover:bg-slate-800"
+                }`
+              }
+            >
+              Dashboard
+            </NavLink>
 
-        <Link
-          to="/apply-leave"
-          className="px-3 py-2 rounded hover:bg-slate-800"
-        >
-          Apply Leave
-        </Link>
+            <NavLink
+              to="/apply-leave"
+              className={({ isActive }) =>
+                `px-3 py-2 rounded ${
+                  isActive ? "bg-blue-600 text-white" : "hover:bg-slate-800"
+                }`
+              }
+            >
+              Apply Leave
+            </NavLink>
 
-        <Link to="/my-leaves" className="px-3 py-2 rounded hover:bg-slate-800">
-          My Leaves
-        </Link>
+            <NavLink
+              to="/my-leaves"
+              className={({ isActive }) =>
+                `px-3 py-2 rounded ${
+                  isActive ? "bg-blue-600 text-white" : "hover:bg-slate-800"
+                }`
+              }
+            >
+              My Leaves
+            </NavLink>
+          </>
+        )}
+
+        {user?.role === "MANAGER" && (
+          <>
+            <NavLink
+              to="/manager-dashboard"
+              className={({ isActive }) =>
+                `px-3 py-2 rounded ${
+                  isActive ? "bg-blue-600 text-white" : "hover:bg-slate-800"
+                }`
+              }
+            >
+              Dashboard
+            </NavLink>
+          </>
+        )}
+
+        {user?.role === "ADMIN" && (
+          <>
+            <NavLink
+              to="/admin-dashboard"
+              className={({ isActive }) =>
+                `px-3 py-2 rounded ${
+                  isActive ? "bg-blue-600 text-white" : "hover:bg-slate-800"
+                }`
+              }
+            >
+              Dashboard
+            </NavLink>
+          </>
+        )}
       </nav>
 
       <button

@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
 import Layout from "../components/Layout";
+import Loader from "../components/Loader";
 
 function EmployeeDashboard() {
   const [dashboard, setDashboard] = useState(null);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const fetchDashboard = async () => {
@@ -19,18 +21,28 @@ function EmployeeDashboard() {
         }
       }
     };
+    const fetchUser = async () => {
+      try {
+        const response = await api.get("/auth/me");
+
+        setUser(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
     fetchDashboard();
+    fetchUser();
   }, []);
 
   if (!dashboard) {
-    return <h2>Loading...</h2>;
+    return <Loader />;
   }
 
   return (
     <Layout>
       <div className="mb-8">
-        <h1 className="text-3xl font-bold">Welcome Back 👋</h1>
+        <h1 className="text-3xl font-bold">Welcome Back, {user?.name} 👋</h1>
 
         <p className="text-gray-500">Employee Leave Management Dashboard</p>
       </div>
