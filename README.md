@@ -74,7 +74,7 @@ A full-stack Employee Leave Management System developed using Spring Boot, React
 
 ## Employee Dashboard
 
-![Employee Dashboard](screenshots/employee-dashboard.png)
+![Employee Dashboard](Employee-Leave-Management-System/employee-dashboard.png)
 
 ---
 
