@@ -63,3 +63,27 @@ A full-stack Employee Leave Management System developed using Spring Boot, React
 - Dark Mode
 - Analytics Charts
 - Docker Deployment
+
+# Employee Leave Management System
+
+## Login Page
+
+![Login](screenshots/login.png)
+
+---
+
+## Employee Dashboard
+
+![Employee Dashboard](screenshots/employee-dashboard.png)
+
+---
+
+## Manager Dashboard
+
+![Manager Dashboard](screenshots/manager-dashboard.png)
+
+---
+
+## Admin Dashboard
+
+![Admin Dashboard](screenshots/admin-dashboard.png)
