@@ -28,7 +28,13 @@ function Sidebar() {
       navigate("/");
     }, 1000);
   };
-
+  if (!user) {
+    return (
+      <div className="w-64 bg-slate-900 min-h-screen flex items-center justify-center">
+        <div className="text-white">Loading...</div>
+      </div>
+    );
+  }
   return (
     <div className="w-64 bg-slate-900 text-white min-h-screen p-5">
       <h2 className="text-2xl font-bold mb-4">ELMS</h2>
