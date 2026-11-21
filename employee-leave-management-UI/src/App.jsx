@@ -7,6 +7,7 @@ import MyLeaves from "./pages/MyLeaves";
 import ManagerDashboard from "./pages/ManagerDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -56,6 +57,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

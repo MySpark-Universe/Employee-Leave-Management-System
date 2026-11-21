@@ -12,4 +12,5 @@ public class EmployeeResponseDto {
     private String email;
     private String role;
     private String department;
+    private boolean active;
 }

@@ -44,6 +44,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                         .email(employee.getEmail())
                         .role(employee.getRole())
                         .department(employee.getDepartment())
+                        .active(employee.isActive())
                         .build())
                 .toList();
     }
@@ -62,6 +63,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .email(employee.getEmail())
                 .role(employee.getRole())
                 .department(employee.getDepartment())
+                .active(employee.isActive())
                 .build();
     }
 

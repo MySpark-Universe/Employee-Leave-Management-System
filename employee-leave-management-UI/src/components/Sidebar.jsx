@@ -1,6 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import api from "../services/api";
+import toast from "react-hot-toast";
 
 function Sidebar() {
   const [user, setUser] = useState(null);
@@ -21,8 +22,11 @@ function Sidebar() {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    toast.success("Logged Out Successfully");
 
-    navigate("/");
+    setTimeout(() => {
+      navigate("/");
+    }, 1000);
   };
 
   return (

@@ -8,6 +8,8 @@ function AdminDashboard() {
   const [stats, setStats] = useState(null);
   const [employees, setEmployees] = useState([]);
   const [user, setUser] = useState(null);
+  const [search, setSearch] = useState("");
+  const [roleFilter, setRoleFilter] = useState("ALL");
 
   useEffect(() => {
     fetchData();
@@ -78,7 +80,29 @@ function AdminDashboard() {
           </h2>
         </div>
       </div>
+      <div className="flex gap-4 mb-4">
+        <input
+          type="text"
+          placeholder="Search Employee..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="w-full md:w-80 border rounded-lg p-3"
+        />
 
+        <select
+          value={roleFilter}
+          onChange={(e) => setRoleFilter(e.target.value)}
+          className="border rounded-lg p-3"
+        >
+          <option value="ALL">All Roles</option>
+
+          <option value="EMPLOYEE">Employee</option>
+
+          <option value="MANAGER">Manager</option>
+
+          <option value="ADMIN">Admin</option>
+        </select>
+      </div>
       <div className="bg-white rounded-xl shadow p-4">
         <h2 className="text-xl font-semibold mb-4">Employees</h2>
 
@@ -90,42 +114,78 @@ function AdminDashboard() {
               <th>Email</th>
 
               <th>Role</th>
-
-              <th>Department</th>
-
+              <th>Status</th>
               <th>Action</th>
             </tr>
           </thead>
 
           <tbody>
-            {employees.map((employee) => (
-              <tr key={employee.id} className="border-b text-center">
-                <td className="p-3">{employee.name}</td>
+            {employees
+              .filter((employee) => {
+                const matchesSearch = employee.name
+                  .toLowerCase()
+                  .includes(search.toLowerCase());
 
-                <td>{employee.email}</td>
+                const matchesRole =
+                  roleFilter === "ALL" ? true : employee.role === roleFilter;
 
-                <td>{employee.role}</td>
+                return matchesSearch && matchesRole;
+              })
+              .map((employee) => (
+                <tr key={employee.id} className="border-b text-center">
+                  <td className="p-3">{employee.name}</td>
 
-                <td>{employee.department}</td>
+                  <td>{employee.email}</td>
 
-                <td>
-                  <button
-                    onClick={() => {
-                      const confirmed = window.confirm(
-                        `Deactivate ${employee.name}?`,
-                      );
-
-                      if (confirmed) {
-                        deactivateEmployee(employee.id);
+                  <td>
+                    <span
+                      className={
+                        employee.role === "ADMIN"
+                          ? "bg-purple-100 text-purple-700 px-3 py-1 rounded-full"
+                          : employee.role === "MANAGER"
+                            ? "bg-blue-100 text-blue-700 px-3 py-1 rounded-full"
+                            : "bg-green-100 text-green-700 px-3 py-1 rounded-full"
                       }
-                    }}
-                    className="bg-red-600 text-white px-3 py-1 rounded"
-                  >
-                    Deactivate
-                  </button>
-                </td>
-              </tr>
-            ))}
+                    >
+                      {employee.role}
+                    </span>
+                  </td>
+
+                  <td>
+                    {employee.active ? (
+                      <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full">
+                        Active
+                      </span>
+                    ) : (
+                      <span className="bg-red-100 text-red-700 px-3 py-1 rounded-full">
+                        Deactivated
+                      </span>
+                    )}
+                  </td>
+
+                  <td>
+                    <button
+                      disabled={!employee.active}
+                      onClick={() => {
+                        const confirmed = window.confirm(
+                          `Deactivate ${employee.name}?`,
+                        );
+
+                        if (confirmed) {
+                          deactivateEmployee(employee.id);
+                        }
+                      }}
+                      className={`px-3 py-1 rounded text-white ${
+                        employee.active
+                          ? "bg-red-600 hover:bg-red-700"
+                          : "bg-gray-400 cursor-not-allowed"
+                      }`}
+                    >
+                      {employee.active ? "Deactivate" : "Already Deactivated"}
+                    </button>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
