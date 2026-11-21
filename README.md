@@ -80,7 +80,7 @@ A full-stack Employee Leave Management System developed using Spring Boot, React
 
 ## Manager Dashboard
 
-![Manager Dashboard](Screenshots/manager-dashboard.png)
+![Manager Dashboard](Screenshots/Manager-Dashboard.png)
 
 ---
 
