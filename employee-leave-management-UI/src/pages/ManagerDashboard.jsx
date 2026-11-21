@@ -10,6 +10,8 @@ function ManagerDashboard() {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [stats, setStats] = useState(null);
+  const [filter, setFilter] = useState("ALL");
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     fetchLeaves();
@@ -119,6 +121,30 @@ function ManagerDashboard() {
           </div>
         </div>
       )}
+      <div className="mb-4">
+        <input
+          type="text"
+          placeholder="Search Employee..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="w-full md:w-80 border rounded-lg p-3"
+        />
+      </div>
+      <div className="mb-4">
+        <select
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+          className="border rounded-lg p-2"
+        >
+          <option value="ALL">All Requests</option>
+
+          <option value="PENDING">Pending</option>
+
+          <option value="APPROVED">Approved</option>
+
+          <option value="REJECTED">Rejected</option>
+        </select>
+      </div>
       <div className="bg-white rounded-xl shadow overflow-hidden">
         <table className="w-full">
           <thead className="bg-slate-100">
@@ -134,84 +160,95 @@ function ManagerDashboard() {
           </thead>
 
           <tbody>
-            {leaves.map((leave) => (
-              <tr key={leave.id} className="border-b text-center">
-                <td className="p-4">{leave.employeeName}</td>
-                <td>
-                  <textarea
-                    disabled={leave.status !== "PENDING"}
-                    placeholder="Enter Comment"
-                    value={comments[leave.id] || ""}
-                    onChange={(e) =>
-                      setComments({
-                        ...comments,
-                        [leave.id]: e.target.value,
-                      })
-                    }
-                    className={`border rounded p-2 w-full mb-2 ${
-                      leave.status !== "PENDING"
-                        ? "bg-gray-100 cursor-not-allowed"
-                        : ""
-                    }`}
-                  />
-                </td>
-                <td>{leave.leaveType}</td>
+            {leaves
+              .filter((leave) => {
+                const matchesSearch = leave.employeeName
+                  .toLowerCase()
+                  .includes(search.toLowerCase());
 
-                <td>{leave.startDate}</td>
+                const matchesStatus =
+                  filter === "ALL" ? true : leave.status === filter;
 
-                <td>{leave.endDate}</td>
+                return matchesSearch && matchesStatus;
+              })
+              .map((leave) => (
+                <tr key={leave.id} className="border-b text-center">
+                  <td className="p-4">{leave.employeeName}</td>
+                  <td>
+                    <textarea
+                      disabled={leave.status !== "PENDING"}
+                      placeholder="Enter Comment"
+                      value={comments[leave.id] || ""}
+                      onChange={(e) =>
+                        setComments({
+                          ...comments,
+                          [leave.id]: e.target.value,
+                        })
+                      }
+                      className={`border rounded p-2 w-full mb-2 ${
+                        leave.status !== "PENDING"
+                          ? "bg-gray-100 cursor-not-allowed"
+                          : ""
+                      }`}
+                    />
+                  </td>
+                  <td>{leave.leaveType}</td>
 
-                <td>
-                  <span
-                    className={
-                      leave.status === "APPROVED"
-                        ? "bg-green-100 text-green-700 px-3 py-1 rounded-full"
-                        : leave.status === "PENDING"
-                          ? "bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full"
-                          : "bg-red-100 text-red-700 px-3 py-1 rounded-full"
-                    }
-                  >
-                    {leave.status}
-                  </span>
-                </td>
+                  <td>{leave.startDate}</td>
 
-                <td>
-                  {leave.status === "PENDING" && (
-                    <div className="flex justify-center gap-2">
-                      <button
-                        onClick={() => {
-                          const confirmed = window.confirm(
-                            "Are you sure you want to approve this leave?",
-                          );
+                  <td>{leave.endDate}</td>
 
-                          if (confirmed) {
-                            approveLeave(leave.id);
-                          }
-                        }}
-                        className="bg-green-600 text-white px-3 py-1 rounded"
-                      >
-                        Approve
-                      </button>
+                  <td>
+                    <span
+                      className={
+                        leave.status === "APPROVED"
+                          ? "bg-green-100 text-green-700 px-3 py-1 rounded-full"
+                          : leave.status === "PENDING"
+                            ? "bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full"
+                            : "bg-red-100 text-red-700 px-3 py-1 rounded-full"
+                      }
+                    >
+                      {leave.status}
+                    </span>
+                  </td>
 
-                      <button
-                        onClick={() => {
-                          const confirmed = window.confirm(
-                            "Are you sure you want to reject this leave?",
-                          );
+                  <td>
+                    {leave.status === "PENDING" && (
+                      <div className="flex justify-center gap-2">
+                        <button
+                          onClick={() => {
+                            const confirmed = window.confirm(
+                              "Are you sure you want to approve this leave?",
+                            );
 
-                          if (confirmed) {
-                            rejectLeave(leave.id);
-                          }
-                        }}
-                        className="bg-red-600 text-white px-3 py-1 rounded"
-                      >
-                        Reject
-                      </button>
-                    </div>
-                  )}
-                </td>
-              </tr>
-            ))}
+                            if (confirmed) {
+                              approveLeave(leave.id);
+                            }
+                          }}
+                          className="bg-green-600 text-white px-3 py-1 rounded"
+                        >
+                          Approve
+                        </button>
+
+                        <button
+                          onClick={() => {
+                            const confirmed = window.confirm(
+                              "Are you sure you want to reject this leave?",
+                            );
+
+                            if (confirmed) {
+                              rejectLeave(leave.id);
+                            }
+                          }}
+                          className="bg-red-600 text-white px-3 py-1 rounded"
+                        >
+                          Reject
+                        </button>
+                      </div>
+                    )}
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
