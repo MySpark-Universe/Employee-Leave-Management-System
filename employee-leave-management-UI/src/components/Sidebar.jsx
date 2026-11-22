@@ -2,6 +2,13 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import api from "../services/api";
 import toast from "react-hot-toast";
+import {
+  FaHome,
+  FaFileAlt,
+  FaClipboardList,
+  FaUsers,
+  FaSignOutAlt,
+} from "react-icons/fa";
 
 function Sidebar() {
   const [user, setUser] = useState(null);
@@ -26,58 +33,145 @@ function Sidebar() {
 
     setTimeout(() => {
       navigate("/");
-    }, 1000);
+    }, 100);
   };
   if (!user) {
     return (
-      <div className="w-64 bg-slate-900 min-h-screen flex items-center justify-center">
+      <div
+        className="
+    group
+    w-20
+    hover:w-64
+    transition-all
+    duration-300
+    bg-slate-900
+    text-white
+    min-h-screen
+    overflow-hidden
+    "
+      >
         <div className="text-white">Loading...</div>
       </div>
     );
   }
   return (
-    <div className="w-64 bg-slate-900 text-white min-h-screen p-5">
-      <h2 className="text-2xl font-bold mb-4">ELMS</h2>
+    <div
+      className="
+  group
+  w-20
+  hover:w-64
+  transition-all
+  duration-300
+  bg-slate-900
+  text-white
+  min-h-screen
+  overflow-hidden
+  p-4
+"
+    >
+      <h2
+        className="
+  text-xl
+  font-bold
+  
+"
+      >
+        ELMS
+      </h2>
 
-      <p className="text-slate-300 mb-6">
-        Welcome,
-        <br />
+      <div
+        className="
+  opacity-0
+  group-hover:opacity-100
+  transition
+  mb-6
+  whitespace-nowrap
+"
+      >
         <span className="font-semibold">{user?.name}</span>
-      </p>
+      </div>
       <nav className="flex flex-col gap-3">
         {user?.role === "EMPLOYEE" && (
           <>
             <NavLink
               to="/employee-dashboard"
               className={({ isActive }) =>
-                `px-3 py-2 rounded ${
-                  isActive ? "bg-blue-600 text-white" : "hover:bg-slate-800"
+                `flex items-center gap-4 px-3 py-3 rounded ${
+                  isActive ? "bg-blue-600" : "hover:bg-slate-800"
                 }`
               }
             >
-              Dashboard
+              <FaHome size={20} className="min-w-5" />
+
+              <span
+                className="
+    ml-4
+    opacity-0
+    w-0
+    overflow-hidden
+    group-hover:w-auto
+    group-hover:opacity-100
+    transition-all
+    duration-300
+    whitespace-nowrap
+    "
+              >
+                Dashboard
+              </span>
             </NavLink>
 
             <NavLink
               to="/apply-leave"
               className={({ isActive }) =>
-                `px-3 py-2 rounded ${
-                  isActive ? "bg-blue-600 text-white" : "hover:bg-slate-800"
+                `flex items-center gap-4 px-3 py-3 rounded ${
+                  isActive ? "bg-blue-600" : "hover:bg-slate-800"
                 }`
               }
             >
-              Apply Leave
+              <FaFileAlt size={20} className="min-w-5" />
+
+              <span
+                className="
+    ml-4
+    opacity-0
+    w-0
+    overflow-hidden
+    group-hover:w-auto
+    group-hover:opacity-100
+    transition-all
+    duration-300
+    whitespace-nowrap
+    "
+              >
+                Apply Leave
+              </span>
             </NavLink>
 
             <NavLink
               to="/my-leaves"
               className={({ isActive }) =>
-                `px-3 py-2 rounded ${
-                  isActive ? "bg-blue-600 text-white" : "hover:bg-slate-800"
+                `flex items-center gap-4 px-3 py-3 rounded ${
+                  isActive ? "bg-blue-600" : "hover:bg-slate-800"
                 }`
               }
             >
-              My Leaves
+              <FaClipboardList size={20} className="min-w-5" />
+
+              <span
+                className="
+    ml-4
+    opacity-0
+    w-0
+    overflow-hidden
+    group-hover:w-auto
+    group-hover:opacity-100
+    transition-all
+    duration-300
+    whitespace-nowrap
+    "
+              >
+                My Leaves
+              </span>
             </NavLink>
           </>
         )}
@@ -115,9 +209,35 @@ function Sidebar() {
 
       <button
         onClick={handleLogout}
-        className="mt-10 w-full bg-red-600 py-2 rounded-lg hover:bg-red-700"
+        className="
+    mt-10
+    w-full
+    bg-red-600
+    py-3
+    rounded-lg
+    hover:bg-red-700
+    flex
+    items-center
+    px-3
+  "
       >
-        Logout
+        <FaSignOutAlt size={20} className="min-w-5" />
+
+        <span
+          className="
+      ml-4
+      opacity-0
+      w-0
+      overflow-hidden
+      group-hover:w-auto
+      group-hover:opacity-100
+      transition-all
+      duration-300
+      whitespace-nowrap
+    "
+        >
+          Logout
+        </span>
       </button>
     </div>
   );

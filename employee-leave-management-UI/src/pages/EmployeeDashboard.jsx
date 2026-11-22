@@ -49,7 +49,7 @@ function EmployeeDashboard() {
 
       <div className="grid md:grid-cols-4 gap-5">
         <div className="bg-white rounded-xl shadow p-5 hover:shadow-xl hover:-translate-y-1 transition duration-300">
-          <h3>Total Leaves</h3>
+          <h3>Total Leaves applied</h3>
           <p className="text-3xl font-bold">{dashboard.totalLeaves}</p>
         </div>
 
@@ -75,7 +75,15 @@ function EmployeeDashboard() {
         </div>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-5 mt-6">
+      <div className="grid md:grid-cols-4 gap-5 mt-6">
+        <div className="bg-white rounded-xl shadow p-5 hover:shadow-xl hover:-translate-y-1 transition duration-300">
+          <h3>Total Leaves Balance</h3>
+          <p className="text-3xl font-bold">
+            {dashboard.casualLeave +
+              dashboard.sickLeave +
+              dashboard.earnedLeave}
+          </p>
+        </div>
         <div className="bg-white rounded-xl shadow p-5 hover:shadow-xl hover:-translate-y-1 transition duration-300">
           <h3>Casual Leave</h3>
           <p className="text-3xl font-bold">{dashboard.casualLeave}</p>

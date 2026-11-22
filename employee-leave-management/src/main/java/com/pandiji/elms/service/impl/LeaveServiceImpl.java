@@ -14,7 +14,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import java.time.temporal.ChronoUnit;
+
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -24,7 +26,29 @@ public class LeaveServiceImpl implements LeaveService {
     private final LeaveRequestRepository leaveRequestRepository;
     private final EmployeeRepository employeeRepository;
     private final LeaveBalanceRepository leaveBalanceRepository;
+    private long calculateWorkingDays(
+            LocalDate startDate,
+            LocalDate endDate) {
 
+        long workingDays = 0;
+
+        LocalDate date = startDate;
+
+        while (!date.isAfter(endDate)) {
+
+            DayOfWeek day = date.getDayOfWeek();
+
+            if (day != DayOfWeek.SATURDAY
+                    && day != DayOfWeek.SUNDAY) {
+
+                workingDays++;
+            }
+
+            date = date.plusDays(1);
+        }
+
+        return workingDays;
+    }
     @Override
     public LeaveRequest applyLeave(
             LeaveRequestDto request) {
@@ -88,10 +112,10 @@ public class LeaveServiceImpl implements LeaveService {
                                         "Leave Balance Not Found"));
 
         long days =
-                ChronoUnit.DAYS.between(
+                calculateWorkingDays(
                         leaveRequest.getStartDate(),
                         leaveRequest.getEndDate()
-                ) + 1;
+                );
 
         switch (leaveRequest
                 .getLeaveType()

@@ -3,11 +3,13 @@ import Layout from "../components/Layout";
 import api from "../services/api";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 function ApplyLeave() {
   const [leaveType, setLeaveType] = useState("CASUAL");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [reason, setReason] = useState("");
   const navigate = useNavigate();
 
@@ -17,8 +19,8 @@ function ApplyLeave() {
     try {
       await api.post("/leaves/apply", {
         leaveType,
-        startDate,
-        endDate,
+        startDate: startDate.toISOString().split("T")[0],
+        endDate: endDate.toISOString().split("T")[0],
         reason,
       });
       toast.success("Leave Applied Successfully ✅");
@@ -33,6 +35,11 @@ function ApplyLeave() {
 
       toast.error("Failed to Apply Leave");
     }
+  };
+  const isWeekday = (date) => {
+    const day = date.getDay();
+
+    return day !== 0 && day !== 6;
   };
 
   return (
@@ -53,17 +60,21 @@ function ApplyLeave() {
             <option value="EARNED">Earned Leave</option>
           </select>
 
-          <input
-            type="date"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
+          <DatePicker
+            selected={startDate}
+            onChange={(date) => setStartDate(date)}
+            minDate={new Date()}
+            filterDate={isWeekday}
+            placeholderText="Select Start Date"
             className="w-full border rounded-lg p-3"
           />
 
-          <input
-            type="date"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
+          <DatePicker
+            selected={endDate}
+            onChange={(date) => setEndDate(date)}
+            minDate={startDate || new Date()}
+            filterDate={isWeekday}
+            placeholderText="Select End Date"
             className="w-full border rounded-lg p-3"
           />
 
