@@ -186,7 +186,23 @@ function Sidebar() {
                 }`
               }
             >
-              Dashboard
+              {" "}
+              <FaHome size={20} className="min-w-5" />
+              <span
+                className="
+    ml-4
+    opacity-0
+    w-0
+    overflow-hidden
+    group-hover:w-auto
+    group-hover:opacity-100
+    transition-all
+    duration-300
+    whitespace-nowrap
+    "
+              >
+                Dashboard
+              </span>
             </NavLink>
           </>
         )}
@@ -201,7 +217,23 @@ function Sidebar() {
                 }`
               }
             >
-              Dashboard
+              {" "}
+              <FaHome size={20} className="min-w-5" />
+              <span
+                className="
+    ml-4
+    opacity-0
+    w-0
+    overflow-hidden
+    group-hover:w-auto
+    group-hover:opacity-100
+    transition-all
+    duration-300
+    whitespace-nowrap
+    "
+              >
+                Dashboard
+              </span>
             </NavLink>
           </>
         )}
