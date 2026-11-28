@@ -181,12 +181,11 @@ function Sidebar() {
             <NavLink
               to="/manager-dashboard"
               className={({ isActive }) =>
-                `px-3 py-2 rounded ${
+                `flex items-center gap-4 px-3 py-3 rounded ${
                   isActive ? "bg-blue-600 text-white" : "hover:bg-slate-800"
                 }`
               }
             >
-              {" "}
               <FaHome size={20} className="min-w-5" />
               <span
                 className="
@@ -212,24 +211,23 @@ function Sidebar() {
             <NavLink
               to="/admin-dashboard"
               className={({ isActive }) =>
-                `px-3 py-2 rounded ${
+                `flex items-center gap-4 px-3 py-3 rounded ${
                   isActive ? "bg-blue-600 text-white" : "hover:bg-slate-800"
                 }`
               }
             >
-              {" "}
               <FaHome size={20} className="min-w-5" />
               <span
                 className="
     ml-4
-    opacity-0
-    w-0
-    overflow-hidden
-    group-hover:w-auto
-    group-hover:opacity-100
-    transition-all
-    duration-300
-    whitespace-nowrap
+      opacity-0
+      w-0
+      overflow-hidden
+      group-hover:w-auto
+      group-hover:opacity-100
+      transition-all
+      duration-300
+      whitespace-nowrap
     "
               >
                 Dashboard
