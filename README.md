@@ -273,7 +273,7 @@ Password: 123456
 
 ### Employee Dashboard
 
-![Employee Dashboard](screenshots/employee-dashboard.png)
+![Employee Dashboard](Screenshots/employee-dashboard.png)
 
 ---
 
