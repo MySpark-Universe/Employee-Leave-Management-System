@@ -279,7 +279,7 @@ Password: 123456
 
 ### Apply Leave
 
-![Apply Leave](Screenshots/apply-leave.png)
+![Apply Leave](Screenshots/Apply-leave.png)
 
 ---
 
@@ -291,13 +291,13 @@ Password: 123456
 
 ### Manager Dashboard
 
-![Manager Dashboard](Screenshots/Manager-dashboard.png)
+![Manager Dashboard](Screenshots/Manager-Dashboard.png)
 
 ---
 
 ### Admin Dashboard
 
-![Admin Dashboard](Screenshots/Admin-dashboard.png)
+![Admin Dashboard](Screenshots/Admin-Dashboard.png)
 
 ---
 
