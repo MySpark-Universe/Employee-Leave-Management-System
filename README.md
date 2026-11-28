@@ -279,13 +279,13 @@ Password: 123456
 
 ### Apply Leave
 
-![Apply Leave](Screenshots/Apply-leave.png)
+![Apply Leave](Screenshots/Apply-leaves.png)
 
 ---
 
 ### My Leaves
 
-![My Leaves](Screenshots/My-leaves.png)
+![My Leaves](Screenshots/Myleaves.png)
 
 ---
 
