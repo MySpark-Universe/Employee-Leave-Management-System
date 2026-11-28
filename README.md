@@ -267,37 +267,37 @@ Password: 123456
 
 ### Login Page
 
-![Login Page](screenshots/login.png)
+![Login Page](Screenshots/Login.png)
 
 ---
 
 ### Employee Dashboard
 
-![Employee Dashboard](Screenshots/employee-dashboard.png)
+![Employee Dashboard](Screenshots/Employee-Dashboard.png)
 
 ---
 
 ### Apply Leave
 
-![Apply Leave](screenshots/apply-leave.png)
+![Apply Leave](Screenshots/apply-leave.png)
 
 ---
 
 ### My Leaves
 
-![My Leaves](screenshots/my-leaves.png)
+![My Leaves](Screenshots/My-leaves.png)
 
 ---
 
 ### Manager Dashboard
 
-![Manager Dashboard](screenshots/manager-dashboard.png)
+![Manager Dashboard](Screenshots/Manager-dashboard.png)
 
 ---
 
 ### Admin Dashboard
 
-![Admin Dashboard](screenshots/admin-dashboard.png)
+![Admin Dashboard](Screenshots/Admin-dashboard.png)
 
 ---
 
